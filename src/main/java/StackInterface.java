@@ -1,3 +1,4 @@
+/** An interface that describes the operation of stack.*/
 public interface StackInterface<T>
 {
     /**
