@@ -82,6 +82,11 @@ public abstract class ResizableArrayStack <T> implements StackInterface<T> {
         // Assertion: topIndex is -1
     } // end clear
 
+    /**
+     * Need to be implemented
+     */
+    public void convertToPostfix(){}
+
     // other useful methods:
     private void ensureCapacity(){
         if(topIndex >= stack.length -1) // if array is full, double its size
