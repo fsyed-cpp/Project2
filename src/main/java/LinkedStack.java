@@ -59,5 +59,20 @@ public class LinkedStack<T> implements StackInterface<T> {
     public void clear() {
         topNode = null;
     }
+
+    @Override
+    /**
+     * Need to be implemented...
+     */
+    public StackInterface<T> convertToPostfix(StackInterface<T> infix)
+    {
+        return null;
+    }
+
+    @Override
+    public StackInterface<T> evaluatePostfix(StackInterface<T> postfix)
+    {
+        return null;
+    }
 }
 
