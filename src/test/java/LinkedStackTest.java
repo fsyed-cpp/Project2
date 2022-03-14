@@ -1,5 +1,4 @@
-import static org.junit.Assert.*;
-
-public class LinkedStackTest {
-    // TODO: Add Unit Tests
+import junit.framework.TestCase;
+public class LinkedStackTest extends TestCase {
+  
 }
