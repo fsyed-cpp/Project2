@@ -1,23 +1,33 @@
-import junit.framework.TestCase;
-public class LinkedStackTest extends TestCase {
+import org.junit.Test;
 
-    public void testPush()
-    {
+
+public class LinkedStackTest {
+
+    @Test
+    public void testPush() {
     }
 
-    public void testPop()
-    {
+    @Test
+    public void testPop() {
     }
 
-    public void testPeek()
-    {
+    @Test
+    public void testPeek() {
     }
 
-    public void testIsEmpty()
-    {
+    @Test
+    public void testIsEmpty() {
     }
 
-    public void testClear()
-    {
+    @Test
+    public void testClear() {
+    }
+
+    @Test
+    public void convertToPostfix() {
+    }
+
+    @Test
+    public void evaluatePostfix() {
     }
 }
