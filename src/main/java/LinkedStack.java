@@ -1,4 +1,5 @@
 import java.util.EmptyStackException;
+import java.util.*;
 
 /**
  * Creates a Stack using a Linked List (Linked Chain) of Node objects
@@ -73,8 +74,32 @@ public class LinkedStack<T> implements StackInterface<T> {
     @Override
     public StackInterface<T> convertToPostfix(StackInterface<T> infix)
     {
+        Stack<Character> operatorStack = new Stack<Character>();
+        String postfix = "";
+        int i = 0;
+        while (infix.isEmpty())
+        {
+            char nextCharacter = postfix.charAt(i);
+            i++;
+            switch (nextCharacter)
+            {
+                case '^':
+                    operatorStack.push(nextCharacter);
+                    break;
+                case '+':
+                case '-':
+                case '*':
+                case '/':
+                    while (!operatorStack.isEmpty() && nextCharacter < operatorStack.peek())
+                    {
+                        operatorStack.pop();
+                    }
+            }
+            return null;
+        }
         return null;
     }
+
 
     @Override
     public StackInterface<T> evaluatePostfix(StackInterface<T> postfix)
