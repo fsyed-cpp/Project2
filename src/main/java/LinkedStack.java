@@ -102,9 +102,32 @@ public class LinkedStack<T> implements StackInterface<T> {
 
 
     @Override
-    public StackInterface<T> evaluatePostfix(StackInterface<T> postfix)
-    {
+    public StackInterface<T> evaluatePostfix(StackInterface<T> postfix) {
         return null;
+    }
+
+    // MARK: - Helpers
+
+    /**
+     * Help us determine which operators take precedent over others
+     * @param firstOperator The first operator in the stack
+     * @param secondOperator The second operator from the stack
+     * @return True if the second operator is >= precedence of first operator, otherwise false
+     */
+    private boolean hasPrecedence(char firstOperator, char secondOperator) {
+
+        // Parentheses always take precedent
+        if (secondOperator == ')' || secondOperator == '(') {
+            return false;
+        }
+
+        // Multiplication and Division take precedence over Addition and Subtraction
+        if ((firstOperator == '*' || firstOperator == '/') &&
+                (secondOperator == '+' || secondOperator == '-')) {
+            return false;
+        }
+
+        return true;
     }
 }
 
