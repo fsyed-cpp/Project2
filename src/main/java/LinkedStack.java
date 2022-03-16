@@ -103,6 +103,50 @@ public class LinkedStack<T> implements StackInterface<T> {
 
     @Override
     public StackInterface<T> evaluatePostfix(StackInterface<T> postfix) {
+
+        // We need 2 stacks:
+        // First one is for the values
+        // Second one is for the operators
+        StackInterface<T> values = new LinkedStack<T>();
+        StackInterface<T> operators = new LinkedStack<>();
+
+        while (!postfix.isEmpty()) {
+
+            // First determine what type of char is at the top of the stack
+            // We should cast our type to char so that we can read it
+            T top = postfix.peek();
+            char charTop = (char)top;
+
+            // Numbers go onto the values stack
+            if (charTop >= 0 && charTop <= 9) {
+                values.push(top);
+            }
+
+            // Catch opening parenthesis
+            else if (charTop == '(') {
+                operators.push(top);
+            }
+
+            // Solve mini-expression with closing parenthesis
+            else if (charTop == ')') {
+                while ((char)operators.peek() != '(') {
+                    T firstVal = values.pop();
+                    T secondVal = values.pop();
+                    T operator = operators.pop();
+                    try {
+                        Integer result = evaluateNumericExpression((char) operator, (int) firstVal, (int) secondVal);
+                        values.push((T)result);
+                        operators.pop();
+                    } catch (Exception exception) {
+                        System.out.println("Error when evaluating expression - found division by 0");
+                    }
+                }
+            }
+
+            // TODO: Evaluate operators, check for precedence, and apply evaluation when entire expression has been evaluated
+
+        }
+
         return null;
     }
 
@@ -128,6 +172,34 @@ public class LinkedStack<T> implements StackInterface<T> {
         }
 
         return true;
+    }
+
+    /**
+     * Evaluates a numerical expression with two values and one operators
+     * @param operator The operator popped off the stack
+     * @param first The first value off of the values stack
+     * @param second The second value off of the values stack
+     * @return
+     */
+    private Integer evaluateNumericExpression(char operator, int second, int first) throws Exception {
+        if (operator == '+') {
+            return first + second;
+        }
+        else if (operator == '-') {
+            return first - second;
+        }
+        else if (operator == '*') {
+            return first * second;
+        }
+        // For division, we should watch for divides by 0
+        if (operator == '/') {
+            if (second == 0) {
+                throw new Exception("Divide by 0 error");
+            } else {
+                return first / second;
+            }
+        }
+        return 0;
     }
 }
 
