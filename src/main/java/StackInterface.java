@@ -33,5 +33,5 @@ public interface StackInterface<T> {
      * evaluatePostfix
      * Evaluates a postfix expression
      */
-    public StackInterface<T> evaluatePostfix(StackInterface<T> postfix);
+    public float evaluatePostfix(String expression);
 }

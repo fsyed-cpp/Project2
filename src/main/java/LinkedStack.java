@@ -100,106 +100,64 @@ public class LinkedStack<T> implements StackInterface<T> {
         return null;
     }
 
-
+    /**
+     * Evaluates a Postfix expression using a Stack built from a Linked Chain
+     * @param expression The postfix expression in String representation
+     * @return a Float (Result) of the final mathematical calculation
+     */
     @Override
-    public StackInterface<T> evaluatePostfix(StackInterface<T> postfix) {
+    public float evaluatePostfix(String expression) {
 
-        // We need 2 stacks:
-        // First one is for the values
-        // Second one is for the operators
-        StackInterface<T> values = new LinkedStack<T>();
-        StackInterface<T> operators = new LinkedStack<>();
+        // Keep track of expression using a stack
+        StackInterface<Integer> stack = new LinkedStack<Integer>();
 
-        while (!postfix.isEmpty()) {
+        // Iterate through the characters in the string
+        for (int i = 0; i < expression.length(); i++)
+        {
+            char currentChar = expression.charAt(i);
 
-            // First determine what type of char is at the top of the stack
-            // We should cast our type to char so that we can read it
-            T top = postfix.peek();
-            char charTop = (char)top;
-
-            // Numbers go onto the values stack
-            if (charTop >= 0 && charTop <= 9) {
-                values.push(top);
+            // ignore whitespace
+            if (currentChar == ' ') {
+                continue;
             }
 
-            // Catch opening parenthesis
-            else if (charTop == '(') {
-                operators.push(top);
+            // Push numbers to the stack
+            if(Character.isDigit(currentChar)) {
+                stack.push(currentChar - '0');
             }
+            // Whenever we see an operator, pop the first two elements from the stack and
+            // evaluate the expression
+            else {
+                int first = stack.pop();
+                int second = stack.pop();
 
-            // Solve mini-expression with closing parenthesis
-            else if (charTop == ')') {
-                while ((char)operators.peek() != '(') {
-                    T firstVal = values.pop();
-                    T secondVal = values.pop();
-                    T operator = operators.pop();
-                    try {
-                        Integer result = evaluateNumericExpression((char) operator, (int) firstVal, (int) secondVal);
-                        values.push((T)result);
-                        operators.pop();
-                    } catch (Exception exception) {
-                        System.out.println("Error when evaluating expression - found division by 0");
-                    }
+                // Addition
+                if (currentChar == '+') {
+                    int sum = second + first;
+                    stack.push(sum);
+                }
+                // Subtraction
+                else if (currentChar == '-') {
+                    int difference = second - first;
+                    stack.push(difference);
+                }
+                // Division
+                else if (currentChar == '/') {
+                    int quotient = second / first;
+                    stack.push(quotient);
+                }
+                else if (currentChar == '*') {
+                    int product = second * first;
+                    stack.push(product);
+                } else {
+                    System.out.println("Error - found unexpected operator");
                 }
             }
-
-            // TODO: Evaluate operators, check for precedence, and apply evaluation when entire expression has been evaluated
-
         }
 
-        return null;
-    }
-
-    // MARK: - Helpers
-
-    /**
-     * Help us determine which operators take precedent over others
-     * @param firstOperator The first operator in the stack
-     * @param secondOperator The second operator from the stack
-     * @return True if the second operator is >= precedence of first operator, otherwise false
-     */
-    private boolean hasPrecedence(char firstOperator, char secondOperator) {
-
-        // Parentheses always take precedent
-        if (secondOperator == ')' || secondOperator == '(') {
-            return false;
-        }
-
-        // Multiplication and Division take precedence over Addition and Subtraction
-        if ((firstOperator == '*' || firstOperator == '/') &&
-                (secondOperator == '+' || secondOperator == '-')) {
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Evaluates a numerical expression with two values and one operators
-     * @param operator The operator popped off the stack
-     * @param first The first value off of the values stack
-     * @param second The second value off of the values stack
-     * @return
-     */
-    private Integer evaluateNumericExpression(char operator, int second, int first) throws Exception {
-        if (operator == '+') {
-            return first + second;
-        }
-        else if (operator == '-') {
-            return first - second;
-        }
-        else if (operator == '*') {
-            return first * second;
-        }
-        // For division, we should watch for divides by 0
-        if (operator == '/') {
-            if (second == 0) {
-                throw new Exception("Divide by 0 error");
-            } else {
-                return first / second;
-            }
-        }
-        return 0;
+        // The last/topmost item in the stack is the result
+        Integer finalResult = stack.pop();
+        return finalResult;
     }
 }
 

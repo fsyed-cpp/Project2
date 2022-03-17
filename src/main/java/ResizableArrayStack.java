@@ -143,9 +143,64 @@ public class ResizableArrayStack <T> implements StackInterface<T> {
 
     // MARK: - Postfix / Infix
 
+    /**
+     * Evaluates a Postfix expression using a Stack built from a Resizable Array
+     * @param expression The postfix expression in String representation
+     * @return a Float (Result) of the final mathematical calculation
+     */
     @Override
-    public StackInterface<T> evaluatePostfix(StackInterface<T> postfix) {
-        return null;
+    public float evaluatePostfix(String expression) {
+
+        // Keep track of expression using a stack
+        StackInterface<Integer> stack = new ResizableArrayStack<Integer>();
+
+        // Iterate through the characters in the string
+        for (int i = 0; i < expression.length(); i++)
+        {
+            char currentChar = expression.charAt(i);
+
+            // ignore whitespace
+            if (currentChar == ' ') {
+                continue;
+            }
+
+            // Push numbers to the stack
+            if(Character.isDigit(currentChar)) {
+                stack.push(currentChar - '0');
+            }
+            // Whenever we see an operator, pop the first two elements from the stack and
+            // evaluate the expression
+            else {
+                int first = stack.pop();
+                int second = stack.pop();
+
+                // Addition
+                if (currentChar == '+') {
+                    int sum = second + first;
+                    stack.push(sum);
+                }
+                // Subtraction
+                else if (currentChar == '-') {
+                    int difference = second - first;
+                    stack.push(difference);
+                }
+                // Division
+                else if (currentChar == '/') {
+                    int quotient = second / first;
+                    stack.push(quotient);
+                }
+                else if (currentChar == '*') {
+                    int product = second * first;
+                    stack.push(product);
+                } else {
+                    System.out.println("Error - found unexpected operator");
+                }
+            }
+        }
+
+        // The last/topmost item in the stack is the result
+        Integer finalResult = stack.pop();
+        return finalResult;
     }
 
     @Override
