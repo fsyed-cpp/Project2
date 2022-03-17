@@ -22,16 +22,4 @@ public interface StackInterface<T> {
 
     /** Removes all entries from this stack. */
     public void clear();
-
-    /**
-     * convertToPostfix
-     * Convert an infix expression to an equivalent postfix expression
-     */
-    public StackInterface<T> convertToPostfix(StackInterface<T> infix);
-
-    /**
-     * evaluatePostfix
-     * Evaluates a postfix expression
-     */
-    public float evaluatePostfix(String expression);
 }

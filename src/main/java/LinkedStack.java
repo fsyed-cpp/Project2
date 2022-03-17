@@ -69,95 +69,99 @@ public class LinkedStack<T> implements StackInterface<T> {
         topNode = null;
     }
 
-    // MARK: TODO
-
-    @Override
-    public StackInterface<T> convertToPostfix(StackInterface<T> infix)
-    {
-        Stack<Character> operatorStack = new Stack<Character>();
-        String postfix = "";
-        int i = 0;
-        while (infix.isEmpty())
-        {
-            char nextCharacter = postfix.charAt(i);
-            i++;
-            switch (nextCharacter)
-            {
-                case '^':
-                    operatorStack.push(nextCharacter);
-                    break;
-                case '+':
-                case '-':
-                case '*':
-                case '/':
-                    while (!operatorStack.isEmpty() && nextCharacter < operatorStack.peek())
-                    {
-                        operatorStack.pop();
-                    }
-            }
-            return null;
-        }
-        return null;
-    }
 
     /**
-     * Evaluates a Postfix expression using a Stack built from a Linked Chain
-     * @param expression The postfix expression in String representation
-     * @return a Float (Result) of the final mathematical calculation
+     * Converts an Infix expression to a Postfix expression
+     * Handles the following operators: +, -, *, /
+     * Expects a String expression with a single whitespace between operators and values
+     * Ex: "2 3 * 4 2 - / 5 6 * +"
+     * @param expression The infix expression as a String
+     * @return a 'String' expression in postfix notation
+     * @throws Exception Throws an exception if we have a leftover opening parenthesis
      */
-    @Override
-    public float evaluatePostfix(String expression) {
+    public String convertToPostfix(String expression) throws Exception {
 
-        // Keep track of expression using a stack
-        StackInterface<Integer> stack = new LinkedStack<Integer>();
+        // To be returned at the end
+        String postfixString = new String("");
 
-        // Iterate through the characters in the string
-        for (int i = 0; i < expression.length(); i++)
-        {
-            char currentChar = expression.charAt(i);
+        // Solve the expression using our Linked Chain Stack
+        LinkedStack<Character> linkedStack = new LinkedStack<Character>();
 
-            // ignore whitespace
-            if (currentChar == ' ') {
+        for (int i = 0; i< expression.length(); i++) {
+
+            char currChar = expression.charAt(i);
+
+            // Ignore whitespace
+            if (currChar == ' ') {
                 continue;
             }
 
-            // Push numbers to the stack
-            if(Character.isDigit(currentChar)) {
-                stack.push(currentChar - '0');
+            // Numbers automatically get added to the stack
+            if (Character.isDigit(currChar)) {
+                postfixString += currChar;
+                postfixString += " ";
             }
-            // Whenever we see an operator, pop the first two elements from the stack and
-            // evaluate the expression
-            else {
-                int first = stack.pop();
-                int second = stack.pop();
 
-                // Addition
-                if (currentChar == '+') {
-                    int sum = second + first;
-                    stack.push(sum);
+            // Add open parenthesis
+            else if (currChar == '(') {
+                linkedStack.push(currChar);
+            }
+
+            // Every time we see a closing parenthesis,
+            // we need to solve the inner problem inside until we see '('
+            else if (currChar == ')') {
+                while (!linkedStack.isEmpty() && linkedStack.peek() != '(') {
+                    postfixString += linkedStack.pop();
+                    postfixString += " ";
                 }
-                // Subtraction
-                else if (currentChar == '-') {
-                    int difference = second - first;
-                    stack.push(difference);
+                // Pop remaining parenthesis
+                linkedStack.pop();
+            }
+            // We have an operator. Based on its precedent,
+            // we will decide if we pop from the stack using
+            // the operand, or add it to the current stack.
+            // We check using the current operator in the expression
+            // and compare it to the operator at the top of the stack
+            else {
+                while (!linkedStack.isEmpty() && getPrecedence(currChar) <= getPrecedence(linkedStack.peek())){
+                    postfixString += linkedStack.pop();
+                    postfixString += " ";
                 }
-                // Division
-                else if (currentChar == '/') {
-                    int quotient = second / first;
-                    stack.push(quotient);
-                }
-                else if (currentChar == '*') {
-                    int product = second * first;
-                    stack.push(product);
-                } else {
-                    System.out.println("Error - found unexpected operator");
-                }
+                linkedStack.push(currChar);
             }
         }
 
-        // The last/topmost item in the stack is the result
-        Integer finalResult = stack.pop();
-        return finalResult;
+        // At this point, we only have leftover operators with the
+        // highest precedence. Now we pop them all from the stack
+        while (!linkedStack.isEmpty()) {
+            if (linkedStack.peek() == '(') {
+                throw new Exception("Unexpected open parenthesis when all mini-problems are solved");
+            }
+            postfixString += linkedStack.pop();
+            postfixString += " ";
+        }
+
+        // Remove the trailing space at the end
+        postfixString = postfixString.substring(0, postfixString.length() - 1);
+        return postfixString;
+    }
+
+    // MARK: - Helpers
+
+    /**
+     * Calculates precedence using the rules of PEMDAS
+     * @param operator Can be +, -, /, *
+     * @return The priority defined as an integer
+     */
+    private int getPrecedence(char operator) {
+        if (operator == '*' || operator == '/') {
+            return 2;
+        } else if (operator == '+' || operator == '-') {
+            return 1;
+        } else {
+            // Unknown operator
+            return 0;
+        }
     }
 }
 
