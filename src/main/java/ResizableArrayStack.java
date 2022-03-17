@@ -148,7 +148,6 @@ public class ResizableArrayStack <T> implements StackInterface<T> {
      * @param expression The postfix expression in String representation
      * @return a Float (Result) of the final mathematical calculation
      */
-    @Override
     public float evaluatePostfix(String expression) {
 
         // Keep track of expression using a stack
@@ -201,10 +200,5 @@ public class ResizableArrayStack <T> implements StackInterface<T> {
         // The last/topmost item in the stack is the result
         Integer finalResult = stack.pop();
         return finalResult;
-    }
-
-    @Override
-    public StackInterface<T> convertToPostfix(StackInterface<T> infix) {
-        return null;
     }
 }
