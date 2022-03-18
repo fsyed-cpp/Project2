@@ -1,10 +1,9 @@
 import java.lang.SuppressWarnings;
 import java.util.Arrays;
 import java.util.EmptyStackException;
-import java.lang.reflect.Array;
 
 /** A class of stacks whose entries are stored in an array. */
-public abstract class ResizableArrayStack <T> implements StackInterface<T> {
+public class ResizableArrayStack <T> implements StackInterface<T> {
 
     private T[] stack; // Array of stack entries
     private int topIndex; //Index of top entry
@@ -110,5 +109,23 @@ public abstract class ResizableArrayStack <T> implements StackInterface<T> {
         {
             throw new SecurityException("ArrayBag object is corrupt.");
         }
+    }
+
+    @Override
+    /**
+     * Need to be implemented...
+     */
+    public StackInterface<T> convertToPostfix(StackInterface<T> infix)
+    {
+        return null;
+    }
+
+    @Override
+    /**
+     * Evaluate a postfix expression.
+     */
+    public StackInterface<T> evaluatePostfix(StackInterface<T> postfix)
+    {
+        return null;
     }
 }
