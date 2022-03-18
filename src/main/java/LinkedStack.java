@@ -3,7 +3,7 @@ import java.util.EmptyStackException;
 public class LinkedStack<T> implements StackInterface<T> {
     private Node topNode;
 
-    public LinkedStack() {
+    public LinkedStack(int i) {
         topNode = null;
     }
 
@@ -74,5 +74,6 @@ public class LinkedStack<T> implements StackInterface<T> {
     {
         return null;
     }
+
 }
 
