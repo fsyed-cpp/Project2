@@ -160,8 +160,7 @@ public class ResizableArrayStack <T> implements StackInterface<T> {
             StackInterface<Integer> stack = new ResizableArrayStack<Integer>();
 
             // Iterate through the characters in the string
-            for (int i = 0; i < expression.length(); i++)
-            {
+            for (int i = 0; i < expression.length(); i++) {
                 char currentChar = expression.charAt(i);
 
                 // ignore whitespace
