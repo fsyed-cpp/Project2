@@ -13,6 +13,7 @@ public class Playground {
         String infixExpression = "2 * 3 / (4 - 2) + 5 * 6";
         try {
             String postfixResult = linkedStack.convertToPostfix(infixExpression);
+
             System.out.println("The postfix expression using a linked stack is: " + postfixResult);
         } catch (Exception exception) {
             System.out.println("Error when attempting to convert to postfix: " + exception);

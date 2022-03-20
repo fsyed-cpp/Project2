@@ -1,5 +1,4 @@
 import java.util.EmptyStackException;
-import java.util.*;
 
 /**
  * Creates a Stack using a Linked List (Linked Chain) of Node objects
