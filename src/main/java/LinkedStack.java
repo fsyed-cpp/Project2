@@ -12,6 +12,9 @@ public class LinkedStack<T> implements StackInterface<T> {
 
     // MARK: - Constructor
 
+    /**
+     * Creates a new instance of LinkedStack
+     */
     public LinkedStack() {
         topNode = null;
     }

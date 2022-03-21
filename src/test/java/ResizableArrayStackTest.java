@@ -87,7 +87,7 @@ public class ResizableArrayStackTest {
     }
 
     @org.junit.jupiter.api.Test
-    void evaluatePostfix() {
+    void testEvaluatePostfix() {
 
         //Arrange
         ResizableArrayStack<Integer> valueStackTest = new ResizableArrayStack<Integer>();
