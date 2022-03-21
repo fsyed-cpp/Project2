@@ -33,8 +33,9 @@ public class ResizableArrayStackTest {
         stringResizableArrayStack.push(String.valueOf('e'));
         stringResizableArrayStack.push(String.valueOf('f'));
 
+
         // Act
-        stringResizableArrayStack.pop();
+        //stringResizableArrayStack.pop();
         stringResizableArrayStack.pop();
 
         //Assert
