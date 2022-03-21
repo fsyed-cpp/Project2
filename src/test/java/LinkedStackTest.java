@@ -34,6 +34,7 @@ public class LinkedStackTest<T> {
 
     @Test
     public void testPeek() {
+
         // Arrange
         LinkedStack<Integer> linkedStack = new LinkedStack<>();
         linkedStack.push((int) 'x');
@@ -51,6 +52,7 @@ public class LinkedStackTest<T> {
 
     @Test
     public void testIsEmpty() {
+
         // Arrange
         LinkedStack<Integer> linkedStack = new LinkedStack<>();
         linkedStack.push((int) 'x');
@@ -84,6 +86,7 @@ public class LinkedStackTest<T> {
 
     @Test
     public void testConvertToPostfix() {
+
     // Arrange
     LinkedStack<Integer> linkedStack = new LinkedStack<Integer>();
     String infixExpression = "2 * 3 / (4 - 2) + 5 * 6";
