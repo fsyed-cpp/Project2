@@ -4,16 +4,17 @@ import org.junit.jupiter.api.BeforeEach;
 public class ResizableArrayStackTest {
 
     ResizableArrayStack<String> stringResizableArrayStack;
+    private final static int INITIAL_CAPACITY = 15;
 
     @BeforeEach
     void setUp() {
-        stringResizableArrayStack = new ResizableArrayStack<String>(15);
+        stringResizableArrayStack = new ResizableArrayStack<String>(INITIAL_CAPACITY);
     }
 
     @org.junit.jupiter.api.Test
     void test_push() {
 
-        // Act
+        // Arrange + Act
         stringResizableArrayStack.push(String.valueOf('a'));
         stringResizableArrayStack.push(String.valueOf('b'));
         stringResizableArrayStack.push(String.valueOf('c'));
@@ -29,7 +30,6 @@ public class ResizableArrayStackTest {
         // Arrange
         stringResizableArrayStack.push(String.valueOf('e'));
         stringResizableArrayStack.push(String.valueOf('f'));
-
 
         // Act
         stringResizableArrayStack.pop();
@@ -89,10 +89,10 @@ public class ResizableArrayStackTest {
     @org.junit.jupiter.api.Test
     void testEvaluatePostfix() {
 
-        //Arrange
+        // Arrange
         ResizableArrayStack<Integer> valueStackTest = new ResizableArrayStack<Integer>();
 
-        //Act
+        // Act
         // We can see this excercise on the question 7 on the textbook, about evaluating Postfix Expression
         // for example we passed ae+bd−/ where a=2, b=3, c=4,d=5, and e=6
         float result1 = valueStackTest.evaluatePostfix("26+35-/");
@@ -103,7 +103,7 @@ public class ResizableArrayStackTest {
         // another test cases with the different expresion: abc−/d*
         float result3 = valueStackTest.evaluatePostfix("234-/5*");
 
-        //Assert
+        // Assert
         assertEquals(-4, result1);
         assertEquals(-58, result2);
         assertEquals(-10, result3);
