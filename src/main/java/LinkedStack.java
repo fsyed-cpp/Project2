@@ -80,6 +80,11 @@ public class LinkedStack<T> implements StackInterface<T> {
      */
     public String convertToPostfix(String expression) throws Exception {
 
+        // Sanitize user input
+        if (expression.equalsIgnoreCase("") || expression.equalsIgnoreCase(" ") || expression == null) {
+            return "INVALID EXPRESSION";
+        }
+
         // To be returned at the end
         String postfixString = new String("");
 

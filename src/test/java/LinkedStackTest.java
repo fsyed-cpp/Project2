@@ -102,6 +102,5 @@ public class LinkedStackTest<T> {
             System.out.println("Error when attempting to convert to postfix: " + exception);
             fail();
         }
-
     }
 };

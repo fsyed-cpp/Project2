@@ -12,6 +12,7 @@ public class ResizableArrayStack <T> implements StackInterface<T> {
     private boolean integrityOK = false;
     private static final int DEFAULT_CAPACITY = 50;
     private static final int MAX_CAPACITY = 10000;
+    private static final int INVALID_POSTFIX_EXPRESSION = -404;
 
     // MARK: - Constructors
 
@@ -150,55 +151,60 @@ public class ResizableArrayStack <T> implements StackInterface<T> {
      */
     public float evaluatePostfix(String expression) {
 
-        // Keep track of expression using a stack
-        StackInterface<Integer> stack = new ResizableArrayStack<Integer>();
+        // Sanitize user input
+        if (expression == " " || expression == "" || expression == null) {
+            System.out.println("Error: Empty expression given");
+            return INVALID_POSTFIX_EXPRESSION;
+        } else {
+            // Keep track of expression using a stack
+            StackInterface<Integer> stack = new ResizableArrayStack<Integer>();
 
-        // Iterate through the characters in the string
-        for (int i = 0; i < expression.length(); i++)
-        {
-            char currentChar = expression.charAt(i);
+            // Iterate through the characters in the string
+            for (int i = 0; i < expression.length(); i++) {
+                char currentChar = expression.charAt(i);
 
-            // ignore whitespace
-            if (currentChar == ' ') {
-                continue;
+                // ignore whitespace
+                if (currentChar == ' ') {
+                    continue;
+                }
+
+                // Push numbers to the stack
+                if(Character.isDigit(currentChar)) {
+                    stack.push(currentChar - '0');
+                }
+                // Whenever we see an operator, pop the first two elements from the stack and
+                // evaluate the expression
+                else {
+                    int first = stack.pop();
+                    int second = stack.pop();
+
+                    // Addition
+                    if (currentChar == '+') {
+                        int sum = second + first;
+                        stack.push(sum);
+                    }
+                    // Subtraction
+                    else if (currentChar == '-') {
+                        int difference = second - first;
+                        stack.push(difference);
+                    }
+                    // Division
+                    else if (currentChar == '/') {
+                        int quotient = second / first;
+                        stack.push(quotient);
+                    }
+                    else if (currentChar == '*') {
+                        int product = second * first;
+                        stack.push(product);
+                    } else {
+                        System.out.println("Error - found unexpected operator");
+                    }
+                }
             }
 
-            // Push numbers to the stack
-            if(Character.isDigit(currentChar)) {
-                stack.push(currentChar - '0');
-            }
-            // Whenever we see an operator, pop the first two elements from the stack and
-            // evaluate the expression
-            else {
-                int first = stack.pop();
-                int second = stack.pop();
-
-                // Addition
-                if (currentChar == '+') {
-                    int sum = second + first;
-                    stack.push(sum);
-                }
-                // Subtraction
-                else if (currentChar == '-') {
-                    int difference = second - first;
-                    stack.push(difference);
-                }
-                // Division
-                else if (currentChar == '/') {
-                    int quotient = second / first;
-                    stack.push(quotient);
-                }
-                else if (currentChar == '*') {
-                    int product = second * first;
-                    stack.push(product);
-                } else {
-                    System.out.println("Error - found unexpected operator");
-                }
-            }
+            // The last/topmost item in the stack is the result
+            Integer finalResult = stack.pop();
+            return finalResult;
         }
-
-        // The last/topmost item in the stack is the result
-        Integer finalResult = stack.pop();
-        return finalResult;
     }
 }
