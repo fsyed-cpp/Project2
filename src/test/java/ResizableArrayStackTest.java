@@ -1,51 +1,111 @@
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.BeforeEach;
 
 public class ResizableArrayStackTest {
 
-    @Test
-    public void testPush() {
+    ResizableArrayStack<String> stringResizableArrayStack;
+
+    @BeforeEach
+    void setUp() {
+        stringResizableArrayStack = new ResizableArrayStack<String>(15);
     }
 
-    @Test
-    public void testPop() {
-    }
-
-    @Test
-    public void testPeek() {
-    }
-
-    @Test
-    public void testIsEmpty() {
-    }
-
-    @Test
-    public void testClear() {
-    }
-
-    /**
-     * Tests the convertToPostfix() method
-     * Test Case 1: Valid Infix Expression
-     * Test Case 2: Invalid Infix Expression
-     */
-    @Test
-    public void testConvertToPostfix() {
-
-        // Arrange
-        LinkedStack<Integer> linkedStack = new LinkedStack<Integer>();
-        String infixExpression = "2 * 3 / (4 - 2) + 5 * 6";
-        String emptyInfixExpression = "";
+    @org.junit.jupiter.api.Test
+    void test_push() {
 
         // Act
-        try {
-            String postfixResult = linkedStack.convertToPostfix(infixExpression);
-            String expectedPostfixResult = "2 3 * 4 2 - / 5 6 * +";
-            String postfixEmptyResult = linkedStack.convertToPostfix(emptyInfixExpression);
-            assertEquals(postfixResult, expectedPostfixResult);
-            assertEquals(postfixEmptyResult, "INVALID EXPRESSION");
-        } catch (Exception exception) {
-            System.out.println("Error when attempting to convert to postfix: " + exception);
-            fail();
-        }
+        stringResizableArrayStack.push(String.valueOf('a'));
+        stringResizableArrayStack.push(String.valueOf('b'));
+        stringResizableArrayStack.push(String.valueOf('c'));
+
+        //Assert
+        assertEquals(false,stringResizableArrayStack.isEmpty());
+        assertEquals(String.valueOf('c'), stringResizableArrayStack.peek());
+    }
+
+    @org.junit.jupiter.api.Test
+    void test_pop() {
+
+        // Arrange
+        stringResizableArrayStack.push(String.valueOf('e'));
+        stringResizableArrayStack.push(String.valueOf('f'));
+
+
+        // Act
+        stringResizableArrayStack.pop();
+        stringResizableArrayStack.pop();
+
+        //Assert
+        assertEquals(true, stringResizableArrayStack.isEmpty());
+    }
+
+    @org.junit.jupiter.api.Test
+    void test_peek() {
+
+        // Arrange
+        stringResizableArrayStack.push(String.valueOf('a'));
+        stringResizableArrayStack.push(String.valueOf('b'));
+        stringResizableArrayStack.push(String.valueOf('c'));
+        stringResizableArrayStack.push(String.valueOf('d'));
+
+        // Act
+        Object result = stringResizableArrayStack.peek();
+
+        // Assert
+        assertEquals(String.valueOf('d'), result);
+    }
+
+    @org.junit.jupiter.api.Test
+    void test_isEmpty() {
+
+        // Arrange
+        stringResizableArrayStack.push(String.valueOf('e'));
+        stringResizableArrayStack.push(String.valueOf('f'));
+
+        // Act
+        stringResizableArrayStack.pop();
+        stringResizableArrayStack.pop();
+
+        // Assert
+        assertTrue(stringResizableArrayStack.isEmpty());
+    }
+
+    @org.junit.jupiter.api.Test
+    void test_clear() {
+
+        // Arrange
+        stringResizableArrayStack.push(String.valueOf('a'));
+        stringResizableArrayStack.push(String.valueOf('b'));
+        stringResizableArrayStack.push(String.valueOf('c'));
+        stringResizableArrayStack.push(String.valueOf('d'));
+
+        // Act
+        stringResizableArrayStack.clear();
+
+        // Assert
+        assertTrue(stringResizableArrayStack.isEmpty());
+    }
+
+    @org.junit.jupiter.api.Test
+    void evaluatePostfix() {
+
+        //Arrange
+        ResizableArrayStack<Integer> valueStackTest = new ResizableArrayStack<Integer>();
+
+        //Act
+        // We can see this excercise on the question 7 on the textbook, about evaluating Postfix Expression
+        // for example we passed ae+bd−/ where a=2, b=3, c=4,d=5, and e=6
+        float result1 = valueStackTest.evaluatePostfix("26+35-/");
+
+        // for example we passed abc*d*−
+        float result2 = valueStackTest.evaluatePostfix("234*5*-");
+
+        // another test cases with the different expresion: abc−/d*
+        float result3 = valueStackTest.evaluatePostfix("234-/5*");
+
+        //Assert
+        assertEquals(-4, result1);
+        assertEquals(-58, result2);
+        assertEquals(-10, result3);
     }
 }
