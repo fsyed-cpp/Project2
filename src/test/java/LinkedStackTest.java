@@ -1,8 +1,15 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Unit test cases for the Linked Stack implementation
+ * @param <T> Generic type T
+ */
 public class LinkedStackTest<T> {
 
+    /**
+     * Tests the push() method
+     */
     @Test
     public void testPush() {
 
@@ -16,6 +23,9 @@ public class LinkedStackTest<T> {
         assertFalse(linkedStack.isEmpty());
     }
 
+    /**
+     * Tests the pop() method
+     */
     @Test
     public void testPop() {
 
@@ -32,6 +42,9 @@ public class LinkedStackTest<T> {
         assertTrue(linkedStack.isEmpty());
     }
 
+    /**
+     * Tests peek() method
+     */
     @Test
     public void testPeek() {
 
@@ -50,6 +63,9 @@ public class LinkedStackTest<T> {
         assertEquals((int) 'z', linkedStack.peek());
     }
 
+    /**
+     * Tests isEmpty()
+     */
     @Test
     public void testIsEmpty() {
 
@@ -67,6 +83,9 @@ public class LinkedStackTest<T> {
         assertTrue(linkedStack.isEmpty());
     }
 
+    /**
+     * Tests the clear() method
+     */
     @Test
     public void testClear() {
 
@@ -84,6 +103,9 @@ public class LinkedStackTest<T> {
         assertTrue(charLinkedStack.isEmpty());
     }
 
+    /**
+     * Tests convertToPostfix()
+     */
     @Test
     public void testConvertToPostfix() {
 
@@ -104,4 +126,4 @@ public class LinkedStackTest<T> {
             fail();
         }
     }
-};
+}

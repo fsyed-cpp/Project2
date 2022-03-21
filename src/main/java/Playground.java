@@ -2,6 +2,11 @@
  * Playground class is used for testing the logic for our LinkedStack and ArrayStack
  */
 public class Playground {
+
+    /**
+     * Main function for playground
+     * @param args main args
+     */
     public static void main(String[] args) {
         System.out.println("Do any testing here");
 
