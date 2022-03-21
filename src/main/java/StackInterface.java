@@ -1,6 +1,5 @@
 /** An interface that describes the operation of stack.*/
-public interface StackInterface<T>
-{
+public interface StackInterface<T> {
     /**
      * Adds a new entry to the top of this stack.
      * @param newEntry An object to be added to the stack **/
@@ -23,17 +22,4 @@ public interface StackInterface<T>
 
     /** Removes all entries from this stack. */
     public void clear();
-
-    /**
-     * convertToPostfix
-     * Convert an infix expression to an equivalent postfix expression
-     */
-    public StackInterface<T> convertToPostfix(StackInterface<T> infix);
-
-    /**
-     * evaluatePostfix
-     * Evaluates a postfix expression
-     */
-    public StackInterface<T> evaluatePostfix(StackInterface<T> postfix);
-
 }
