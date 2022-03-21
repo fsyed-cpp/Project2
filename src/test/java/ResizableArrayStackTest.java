@@ -59,7 +59,7 @@ public class ResizableArrayStackTest {
     }
 
     @org.junit.jupiter.api.Test
-    void isEmpty() {
+    void test_isEmpty() {
 
         // Arrange
         stringResizableArrayStack.push(String.valueOf('e'));
@@ -74,7 +74,7 @@ public class ResizableArrayStackTest {
     }
 
     @org.junit.jupiter.api.Test
-    void clear() {
+    void test_clear() {
 
         // Arrange
         stringResizableArrayStack.push(String.valueOf('a'));
