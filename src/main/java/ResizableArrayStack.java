@@ -25,6 +25,7 @@ public class ResizableArrayStack <T> implements StackInterface<T> {
 
     /**
      * Creates an empty Resizable Array with a set amount of entries
+     * @param initialCapacity: The initial size of the array stack
      */
     public ResizableArrayStack(int initialCapacity) {
         integrityOK = false;
@@ -87,7 +88,7 @@ public class ResizableArrayStack <T> implements StackInterface<T> {
     /**
      * Checks to see if the stack is empty
      * @return True if empty, False if not
-     * Since the base is index -1, we must check < 0 to see if we are empty
+     * Since the base is index -1, we must check for less than 0 to see if we are empty
      */
     @Override
     public boolean isEmpty()

@@ -1,6 +1,9 @@
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 
+/**
+ * Implementation of the Stack Interface using Arrays
+ */
 public class ResizableArrayStackTest {
 
     ResizableArrayStack<String> stringResizableArrayStack;
